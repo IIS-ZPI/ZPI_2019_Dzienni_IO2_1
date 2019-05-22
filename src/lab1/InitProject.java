@@ -29,6 +29,7 @@ public class InitProject implements IArithmeticsDiff, IArithmeticsMult, IArithme
         return 0;
     }
 
+    //implementation of addition method
     @Override
     public double addition(double a, double b) {
         return a + b;
