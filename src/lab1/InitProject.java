@@ -13,7 +13,8 @@ public class InitProject implements IArithmeticsDiff, IArithmeticsMult, IArithme
     public double Difference(double A, double B) {
         return A - B;
     }
-
+    
+    // comment2
     @Override
     public double multiplication(double a, double b) {
         return a * b;
