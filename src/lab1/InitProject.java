@@ -1,4 +1,5 @@
 package lab1;
+
 public class InitProject implements IArithmeticsDiff, IArithmeticsMult, IArithmeticsDiv, IArithmeticsAdd {
 
     public static void main(String[] args) {
@@ -14,11 +15,6 @@ public class InitProject implements IArithmeticsDiff, IArithmeticsMult, IArithme
     }
 
     @Override
-    public double multiplication(double a, double b) {
-        return a * b;
-    }
-
-    @Override
     public double division(double A, double B) {
         try {
             return A / B;
@@ -28,10 +24,8 @@ public class InitProject implements IArithmeticsDiff, IArithmeticsMult, IArithme
         return 0;
     }
 
-
     @Override
     public double addition(double a, double b) {
         return a + b;
     }
-
 }
