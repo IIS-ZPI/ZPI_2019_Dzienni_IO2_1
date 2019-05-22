@@ -21,6 +21,7 @@ public class InitProject implements IArithmeticsDiff, IArithmeticsMult, IArithme
 
     @Override
     public double division(double A, double B) {
+        // comment 2 Marax97
         try {
             return A / B;
         } catch (ArithmeticException e) {
