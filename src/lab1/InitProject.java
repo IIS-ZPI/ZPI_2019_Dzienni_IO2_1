@@ -16,6 +16,7 @@ public class InitProject implements IArithmeticsDiff, IArithmeticsMult, IArithme
 
     @Override
     public double multiplication(double a, double b) {
+    	//comment3
         return a * b;
     }
 
