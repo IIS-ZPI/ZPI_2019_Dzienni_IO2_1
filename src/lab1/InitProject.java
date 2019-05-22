@@ -1,16 +1,19 @@
 package lab1;
 
-public class InitProject implements IArithmeticsDiv, IArithmeticsAdd {
+public class InitProject implements IArithmeticsMult,IArithmeticsDiv, IArithmeticsAdd{
 
     public static void main(String[] args) {
         System.out.println("ZPI_2019_Dzienni_IO2_1 \n developer - pawo97");
-        System.out.println("ZPI_2019_Dzienni_IO2_1 \n tester - Marax97");
         System.out.println("ZPI_2019_Dzienni_IO2_1 \n operations - JHinge");
         System.out.println("developer - dominik3131");
     }
 
-    @Override
-    public double division(double A, double B) {
+	@Override
+	public double multiplication(double a, double b) {
+		return a * b;
+	}
+  @Override
+  public double division(double A, double B) {
         try {
             return A / B;
         } catch (ArithmeticException e) {
