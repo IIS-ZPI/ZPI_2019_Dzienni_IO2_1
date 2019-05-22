@@ -1,13 +1,15 @@
 package lab1;
-
-public class InitProject implements IArithmeticsMult,IArithmeticsDiv, IArithmeticsAdd{
-
+public class InitProject implements IArithmeticsDiff,IArithmeticsMult,IArithmeticsDiv, IArithmeticsAdd{
     public static void main(String[] args) {
         System.out.println("ZPI_2019_Dzienni_IO2_1 \n developer - pawo97");
         System.out.println("ZPI_2019_Dzienni_IO2_1 \n operations - JHinge");
         System.out.println("developer - dominik3131");
     }
 
+    @Override
+    public double Difference(double A, double B) {
+        return A - B;
+    }
 	@Override
 	public double multiplication(double a, double b) {
 		return a * b;
@@ -26,4 +28,5 @@ public class InitProject implements IArithmeticsMult,IArithmeticsDiv, IArithmeti
 	public double addition(double a, double b) {
 		return a+b;
 	}
+
 }
