@@ -7,6 +7,7 @@ public class InitProject implements IArithmeticsDiff, IArithmeticsMult, IArithme
         System.out.println("ZPI_2019_Dzienni_IO2_1 \n operations - JHinge");
         System.out.println("tester - Marax97");
         System.out.println("developer - dominik3131");
+        //AWESOME_FEATURE
     }
 
     @Override
