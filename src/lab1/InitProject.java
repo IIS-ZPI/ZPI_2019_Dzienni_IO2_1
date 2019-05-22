@@ -12,7 +12,7 @@ public class InitProject implements IArithmeticsAdd{
 
 	@Override
 	public double addition(double a, double b) {
-		return a+b;
+		return a+b ;
 	}
 
 }
