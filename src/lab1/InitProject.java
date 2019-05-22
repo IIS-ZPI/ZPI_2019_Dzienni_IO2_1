@@ -30,3 +30,4 @@ public class InitProject implements IArithmeticsDiff,IArithmeticsMult,IArithmeti
 	}
 
 }
+
