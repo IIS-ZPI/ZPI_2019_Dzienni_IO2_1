@@ -26,6 +26,7 @@ public class InitProject implements IArithmeticsDiff, IArithmeticsMult, IArithme
         } catch (ArithmeticException e) {
             System.err.println("You can't divide by 0");
         }
+        // comment 1 Marax97
         return 0;
     }
 
