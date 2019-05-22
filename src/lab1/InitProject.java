@@ -11,6 +11,7 @@ public class InitProject implements IArithmeticsDiff, IArithmeticsMult, IArithme
 
     @Override
     public double Difference(double A, double B) {
+        // Create difference between numbers2
         return A - B;
     }
 
