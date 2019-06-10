@@ -50,14 +50,18 @@ public class App {
 
 	}
 
-	private void distributionOfChangesControl() {
+	private void distributionOfChangesControl() throws IOException {
 		// TODO Auto-generated method stub
 		System.out.println("not yet implemented");
+		pressEnterToContinue();
+		mainMenuControl();
 	}
 
-	private void statisticalMeasuresControl() {
+	private void statisticalMeasuresControl() throws IOException {
 		// TODO Auto-generated method stub
 		System.out.println("not yet implemented");
+		pressEnterToContinue();
+		mainMenuControl();
 	}
 
 	private void sessionsStaticticsControl() throws IOException {
