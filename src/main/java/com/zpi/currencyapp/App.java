@@ -39,6 +39,7 @@ public class App {
 				distributionOfChangesControl();
 				break;
 			case "4":
+				System.out.println("Goodbye");
 				Runtime.getRuntime().exit(0);
 				break;
 			default:
@@ -51,15 +52,24 @@ public class App {
 
 	private void distributionOfChangesControl() {
 		// TODO Auto-generated method stub
+		System.out.println("not yet implemented");
 	}
 
 	private void statisticalMeasuresControl() {
 		// TODO Auto-generated method stub
+		System.out.println("not yet implemented");
 	}
 
-	private void sessionsStaticticsControl() {
-		// TODO Auto-generated method stub
-
+	private void sessionsStaticticsControl() throws IOException {
+		String currency=chooseCurrency();
+		LocalDate startDate=choosePeriodFromWeekToOneYear();
+		System.out.println("sessions data not yet implemented");
+		System.out.println("Data from "+ startDate+ " to " + LocalDate.now()+" for currency "+currency);
+		System.out.println("growth sessions: " + 0);
+		System.out.println("downward sessions: " + 0);
+		System.out.println("stable sessions: " + 0);
+		pressEnterToContinue();
+		mainMenuControl();
 	}
 
 	private void printMainMenuChoices() {
@@ -86,6 +96,13 @@ public class App {
 		System.out.println("---------------------------------");
 		System.out.println("1. last month");
 		System.out.println("2. last quarter");
+		System.out.println("---------------------------------");
+	}
+
+	private void printAvailableCurrencies() {
+		System.out.println("---------------------------------");
+		System.out.println("AVAILABLE CURRENCIES TO CHOOSE");
+		System.out.println("list of available currencies will be downloaded from npb, for now only usd is correct");
 		System.out.println("---------------------------------");
 	}
 
@@ -137,8 +154,21 @@ public class App {
 		return LocalDate.now();
 	}
 
-	private void chooseCurrency() {
-		// TODO Auto-generated method stub
+	private String chooseCurrency() throws IOException {
+		printAvailableCurrencies();
+		String currency = null;
+		boolean isChoosenOptionCorrect = false;
+		while (!isChoosenOptionCorrect) {
+			System.out.println("What currency you want to choose?");
+			currency = reader.readLine();
+			isChoosenOptionCorrect = true;
+			System.out.println("There is not such currency available. Type Again.");
+			if(!currency.equals("usd")) {
+				isChoosenOptionCorrect = false;
+				//TO-DO add others currencies check
+			}
+		}
+		return currency;
 	}
 
 	private void chooseOperation() {
@@ -167,5 +197,10 @@ public class App {
 
 	private LocalDate getLastYear() {
 		return LocalDate.now().minusYears(1).minusDays(1);
+	}
+	
+	private void pressEnterToContinue() throws IOException {
+		System.out.println("Press Enter to continue");
+		reader.readLine();
 	}
 }
