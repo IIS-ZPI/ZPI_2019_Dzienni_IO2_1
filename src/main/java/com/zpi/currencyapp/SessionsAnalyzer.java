@@ -28,4 +28,52 @@ public class SessionsAnalyzer {
 		}
 		return growthSession;
 	}
+	/**Calculates how many decrease sessions are in passed amount of data
+	 * 
+	 * @param Note rates to calculate decrease sessions 
+	 * @return amount of decrease sessions
+	 */
+	public int calculateDecreaseSessionAmount(CurrencyNoteA Note) {
+		int decraseSession=0;
+		boolean isDecreasing=false;
+		RateA temp=Note.getRates().get(0);
+		for(RateA rate : Note.getRates()) {
+			System.out.println(rate.getMid());
+			if(rate.getMid()<temp.getMid()) {
+				if(!isDecreasing) {
+					decraseSession++;
+					isDecreasing=true;
+				}
+			}
+			else {
+				isDecreasing=false;
+			}
+			temp=rate;
+		}
+		return decraseSession;
+	}
+	/**Calculates how many stable sessions are in passed amount of data
+	 * 
+	 * @param Note rates to calculate stable sessions 
+	 * @return amount of stable sessions
+	 */
+	public int calculatestableSessionsAmount(CurrencyNoteA Note) {
+		int stableSessions=0;
+		boolean isStable=false;
+		RateA temp=Note.getRates().get(0);
+		for(RateA rate : Note.getRates()) {
+			System.out.println(rate.getMid());
+			if(rate.getMid()==temp.getMid()) {
+				if(!isStable) {
+					stableSessions++;
+					isStable=true;
+				}
+			}
+			else {
+				isStable=false;
+			}
+			temp=rate;
+		}
+		return stableSessions;
+	}
 }
