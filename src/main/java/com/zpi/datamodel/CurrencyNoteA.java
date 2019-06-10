@@ -3,7 +3,7 @@ package com.zpi.datamodel;
 import java.util.List;
 
 public class CurrencyNoteA {
-    String table;
+	String table;
     String currency;
     String code;
     List<RateA> rates;
@@ -18,5 +18,9 @@ public class CurrencyNoteA {
 	}
 	public List<RateA> getRates() {
 		return rates;
+	}
+	@Override
+	public String toString() {
+		return "CurrencyNoteA [table=" + table + ", currency=" + currency + ", code=" + code + ", rates=" + rates + "]";
 	}
 }

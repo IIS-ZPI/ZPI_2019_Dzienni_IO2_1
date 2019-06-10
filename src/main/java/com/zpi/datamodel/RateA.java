@@ -13,4 +13,8 @@ public class RateA {
 	public double getMid() {
 		return mid;
 	}
+	@Override
+	public String toString() {
+		return "RateA [no=" + no + ", effectiveDate=" + effectiveDate + ", mid=" + mid + "]";
+	}
 }
