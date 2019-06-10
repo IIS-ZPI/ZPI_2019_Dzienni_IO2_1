@@ -9,12 +9,11 @@ public class SessionsAnalyzer {
 	 * @param Note rates to calculate growth sessions 
 	 * @return amount of growth sessions
 	 */
-	public int calculateGrowthSessionAmount(CurrencyNoteA Note) {
+	public int calculateGrowthSessionsAmount(CurrencyNoteA Note) {
 		int growthSession=0;
 		boolean isGrowing=false;
 		RateA temp=Note.getRates().get(0);
 		for(RateA rate : Note.getRates()) {
-			System.out.println(rate.getMid());
 			if(rate.getMid()>temp.getMid()) {
 				if(!isGrowing) {
 					growthSession++;
@@ -33,12 +32,11 @@ public class SessionsAnalyzer {
 	 * @param Note rates to calculate decrease sessions 
 	 * @return amount of decrease sessions
 	 */
-	public int calculateDecreaseSessionAmount(CurrencyNoteA Note) {
+	public int calculateDownwardSessionsAmount(CurrencyNoteA Note) {
 		int decraseSession=0;
 		boolean isDecreasing=false;
 		RateA temp=Note.getRates().get(0);
 		for(RateA rate : Note.getRates()) {
-			System.out.println(rate.getMid());
 			if(rate.getMid()<temp.getMid()) {
 				if(!isDecreasing) {
 					decraseSession++;
@@ -62,7 +60,6 @@ public class SessionsAnalyzer {
 		boolean isStable=false;
 		RateA temp=Note.getRates().get(0);
 		for(RateA rate : Note.getRates()) {
-			System.out.println(rate.getMid());
 			if(rate.getMid()==temp.getMid()) {
 				if(!isStable) {
 					stableSessions++;
