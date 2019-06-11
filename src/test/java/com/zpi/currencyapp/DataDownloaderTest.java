@@ -23,7 +23,7 @@ public class DataDownloaderTest {
         assertThat(usd.getRates()
                       .get(0)
                       .getMid(),
-                equalTo("3.8177"));
+                equalTo(3.8177));
     }
 
     @Test
