@@ -5,12 +5,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
 
+import com.zpi.datamodel.CurrencyNoteA;
+
 public class App {
 	private BufferedReader reader;
 	private String choosenOption;
-
+	private SessionsAnalyzer sessionsAnalyzer;
 	public App() {
 		reader = new BufferedReader(new InputStreamReader(System.in));
+		sessionsAnalyzer=new SessionsAnalyzer();
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -67,11 +70,11 @@ public class App {
 	private void sessionsStaticticsControl() throws IOException {
 		String currency=chooseCurrency();
 		LocalDate startDate=choosePeriodFromWeekToOneYear();
-		System.out.println("sessions data not yet implemented");
+		CurrencyNoteA note = DataDownloader.getDataForSingleCurrency(currency, startDate, LocalDate.now());
 		System.out.println("Data from "+ startDate+ " to " + LocalDate.now()+" for currency "+currency);
-		System.out.println("growth sessions: " + 0);
-		System.out.println("downward sessions: " + 0);
-		System.out.println("stable sessions: " + 0);
+		System.out.println("growth sessions: " + sessionsAnalyzer.calculateGrowthSessionsAmount(note));
+		System.out.println("downward sessions: " + sessionsAnalyzer.calculateDownwardSessionsAmount(note));
+		System.out.println("stable sessions: " + sessionsAnalyzer.calculatestableSessionsAmount(note));
 		pressEnterToContinue();
 		mainMenuControl();
 	}
