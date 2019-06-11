@@ -23,7 +23,7 @@ public class DataDownloaderTest {
         assertThat(usd.getRates()
                       .get(0)
                       .getMid(),
-                equalTo("3.8177"));
+                equalTo(3.8177));
     }
 
     @Test
@@ -40,21 +40,6 @@ public class DataDownloaderTest {
     public void shouldChcekIfRatesAreReturnedForApproporiateCurrency() {
         usd = DataDownloader.getDataForSingleCurrency("USD", LocalDate.of(2019, 5, 1), LocalDate.of(2019, 5, 2));
         assertThat(usd.getCode(), equalTo("USD"));
-    }
-
-    @Test(expected = InvalidDateException.class)
-    public void shouldThrowInvalidDateExceptionIfStartDateIsEqualToEndDate() {
-        usd = DataDownloader.getDataForSingleCurrency("USD", LocalDate.of(2019, 5, 1), LocalDate.of(2019, 5, 1));
-    }
-
-    @Test(expected = InvalidDateException.class)
-    public void shouldThrowInvalidDateExceptionIfStartDateLaterThenEndDate() {
-        usd = DataDownloader.getDataForSingleCurrency("USD", LocalDate.of(2019, 5, 5), LocalDate.of(2019, 5, 1));
-    }
-
-    @Test(expected = InvalidDateException.class)
-    public void shouldThrowInvalidDateExceptionIfDateIsIncorect() {
-        usd = DataDownloader.getDataForSingleCurrency("USD", LocalDate.of(2019, 2, 31), LocalDate.of(2019, 5, 1));
     }
 
 }
