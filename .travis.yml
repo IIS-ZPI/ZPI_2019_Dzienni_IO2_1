@@ -1,6 +1,14 @@
 language: java
 sudo: false
 script: mvn clean verify
+notifications:
+  email:
+    recipients:
+        rakdominikrak@gmail.com
+        mkopka97@gmail.com
+        pawo97@o2.pl
+    on_success: never
+    on_failure: always
 deploy:
   provider: releases
   api_key:
