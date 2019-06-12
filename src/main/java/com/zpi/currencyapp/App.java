@@ -6,14 +6,18 @@ import java.io.InputStreamReader;
 import java.time.LocalDate;
 
 import com.zpi.datamodel.CurrencyNoteA;
+import com.zpi.datamodel.TableA;
+import com.zpi.datamodel.TableRateA;
 
 public class App {
 	private BufferedReader reader;
 	private String choosenOption;
 	private SessionsAnalyzer sessionsAnalyzer;
+	private TableA availableCurrencies;
 	public App() {
 		reader = new BufferedReader(new InputStreamReader(System.in));
 		sessionsAnalyzer=new SessionsAnalyzer();
+		availableCurrencies = DataDownloader.getListOfCurrencies();
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -109,7 +113,9 @@ public class App {
 	private void printAvailableCurrencies() {
 		System.out.println("---------------------------------");
 		System.out.println("AVAILABLE CURRENCIES TO CHOOSE");
-		System.out.println("list of available currencies will be downloaded from npb, for now only usd is correct");
+		for(TableRateA item:availableCurrencies.getRates()) {
+			System.out.println(item.getCode()+"  -  "+ item.getCurrency());
+		}
 		System.out.println("---------------------------------");
 	}
 
@@ -166,18 +172,22 @@ public class App {
 		String currency = null;
 		boolean isChoosenOptionCorrect = false;
 		while (!isChoosenOptionCorrect) {
-			System.out.println("What currency you want to choose?");
+			System.out.println("What currency you want to choose? Enter code of choosen currency");
 			currency = reader.readLine();
-			isChoosenOptionCorrect = true;
-			System.out.println("There is not such currency available. Type Again.");
-			if(!currency.equals("usd")) {
-				isChoosenOptionCorrect = false;
-				//TO-DO add others currencies check
+			currency=currency.toUpperCase();
+			isChoosenOptionCorrect = checkIfChoosenCurrencyIsCorrect(currency);
+			if(!isChoosenOptionCorrect) {
+				System.out.println("There is not such currency available. Type Again.");
 			}
 		}
 		return currency;
 	}
-
+	private boolean checkIfChoosenCurrencyIsCorrect(String code) {
+		for(TableRateA item: availableCurrencies.getRates()) {
+			if(item.getCode().equals(code)) return true;
+		}
+		return false;
+	}
 	private void chooseOperation() {
 		// TODO Auto-generated method stub
 	}

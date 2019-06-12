@@ -108,7 +108,6 @@ public class DataDownloader {
 		String uri = "http://api.nbp.pl/api/exchangerates/tables/a/"+LocalDate.now().minusDays(1).toString()+"?format=json";
 		String jsonStringData = executeRequest(uri);
 		Gson gson = new Gson();
-		System.out.println(jsonStringData);
 		TableA[] temp = gson.fromJson(jsonStringData, TableA[].class);
 		TableA data=temp[0];
 		data.getRates().sort((TableRateA d1,TableRateA d2)->d1.getCode().compareTo(d2.getCode()));
