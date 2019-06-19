@@ -11,11 +11,13 @@ notifications:
         pawo97@o2.pl
     on_success: never
     on_failure: always
+before_deploy:
+  - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
 deploy:
   provider: releases
   api_key:
     secure: GIT_AUTH
-  file: target/*.jar
+  file: "target/*.jar"
   skip_cleanup: true
   on:
     repo: IIS-ZPI/ZPI_2019_Dzienni_IO2_1
