@@ -65,10 +65,17 @@ public class App {
 	}
 
 	private void statisticalMeasuresControl() throws IOException {
-		// TODO Auto-generated method stub
-		System.out.println("not yet implemented");
-		pressEnterToContinue();
-		mainMenuControl();
+		 String currency = chooseCurrency();
+	        LocalDate startDate = choosePeriodFromWeekToOneYear();
+	        CurrencyNoteA note = DataDownloader.getDataForSingleCurrency(currency, startDate, LocalDate.now());
+	        StatisticalFeature statisticalFeature = new StatisticalFeature(currency, note);
+	        System.out.println("Data from " + startDate + " to " + LocalDate.now() + " for currency " + currency);
+	        System.out.println("Median: " + statisticalFeature.calculateMedian());
+	        System.out.println("Dominant: " + statisticalFeature.calculateDominant());
+	        System.out.println("Standard Deviation: " + statisticalFeature.standardDeviation());
+	        System.out.println("Coefficient Of Variation: " + statisticalFeature.coefficientOfVariation());
+	        pressEnterToContinue();
+	        mainMenuControl();
 	}
 
 	private void sessionsStaticticsControl() throws IOException {
