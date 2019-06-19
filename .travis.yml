@@ -23,4 +23,4 @@ deploy:
     repo: IIS-ZPI/ZPI_2019_Dzienni_IO2_1
     branches:
       only:
-- master
+        - master
