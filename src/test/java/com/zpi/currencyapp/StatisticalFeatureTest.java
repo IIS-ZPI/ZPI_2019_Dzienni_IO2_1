@@ -98,52 +98,52 @@ public class StatisticalFeatureTest {
         assertThat(df.format(coeffVar), equalTo("0.4132"));
     }
 
-    // @Test
-    // public void calulateDominant_oneValue_dominantEqualsValue() {
-    // rates = Arrays.asList(new Double[] {7.0});
-    // statFeature = new StatisticalFeature(rates);
-    // double[] dominant = statFeature.calculateDominant()
-    // .toArray();
-    // assertThat(dominant[0], equalTo(7));
-    // }
-    //
-    // @Test
-    // public void calulateDominant_sameValues() {
-    // Double[] ratesData = new Double[] {3.5, 3.5, 3.5, 3.5};
-    // rates = Arrays.asList(ratesData);
-    // statFeature = new StatisticalFeature(rates);
-    // double[] dominant = statFeature.calculateDominant()
-    // .toArray();
-    // assertThat(dominant[0], equalTo(3.5));
-    // }
-    //
-    // @Test
-    // public void calulateDominant_allDiffrentValues_dominant() {
-    // Double[] ratesData = new Double[] {3.5, 3.5, 3.5, 3.5};
-    // rates = Arrays.asList(ratesData);
-    // statFeature = new StatisticalFeature(rates);
-    // double[] dominant = statFeature.calculateDominant()
-    // .toArray();
-    // assertThat(dominant, equalTo(ratesData));
-    // }
-    //
-    // @Test
-    // public void calulateDominant_twoSameValues() {
-    // Double[] ratesData = new Double[] {3.5, 3.5, 8.3, 1.4};
-    // rates = Arrays.asList(ratesData);
-    // statFeature = new StatisticalFeature(rates);
-    // double[] dominant = statFeature.calculateDominant()
-    // .toArray();
-    // assertThat(dominant[0], equalTo(3.5));
-    // }
-    //
-    // @Test
-    // public void calulateDominant_twoPairsOfSameValues() {
-    // Double[] ratesData = new Double[] {3.5, 1.4, 3.5, 1.4};
-    // rates = Arrays.asList(ratesData);
-    // statFeature = new StatisticalFeature(rates);
-    // double[] dominant = statFeature.calculateDominant()
-    // .toArray();
-    // assertThat(dominant, equalTo(new Double[] {3.5, 1.4}));
-    // }
+    @Test
+    public void calulateDominant_oneValue_dominantEqualsValue() {
+        rates = Arrays.asList(new Double[] {7.0});
+        statFeature = new StatisticalFeature(rates);
+        Object[] dominant = statFeature.calculateDominant()
+                                       .toArray();
+        assertThat(dominant[0], equalTo(7.0));
+    }
+
+    @Test
+    public void calulateDominant_sameValues() {
+        Double[] ratesData = new Double[] {3.5, 3.5, 3.5, 3.5};
+        rates = Arrays.asList(ratesData);
+        statFeature = new StatisticalFeature(rates);
+        Object[] dominant = statFeature.calculateDominant()
+                                       .toArray();
+        assertThat(dominant[0], equalTo(3.5));
+    }
+
+    @Test
+    public void calulateDominant_allDiffrentValues_dominant() {
+        Double[] ratesData = new Double[] {3.5, 3.6, 3.7, 3.8};
+        rates = Arrays.asList(ratesData);
+        statFeature = new StatisticalFeature(rates);
+        Object[] dominant = statFeature.calculateDominant()
+                                       .toArray();
+        assertThat(dominant, equalTo(ratesData));
+    }
+
+    @Test
+    public void calulateDominant_twoSameValues() {
+        Double[] ratesData = new Double[] {3.5, 3.5, 8.3, 1.4};
+        rates = Arrays.asList(ratesData);
+        statFeature = new StatisticalFeature(rates);
+        Object[] dominant = statFeature.calculateDominant()
+                                       .toArray();
+        assertThat(dominant[0], equalTo(3.5));
+    }
+
+    @Test
+    public void calulateDominant_twoPairsOfSameValues() {
+        Double[] ratesData = new Double[] {3.5, 1.4, 3.5, 1.4};
+        rates = Arrays.asList(ratesData);
+        statFeature = new StatisticalFeature(rates);
+        Object[] dominant = statFeature.calculateDominant()
+                                       .toArray();
+        assertThat(dominant, equalTo(new Double[] {3.5, 1.4}));
+    }
 }
