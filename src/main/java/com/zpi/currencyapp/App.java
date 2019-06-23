@@ -99,10 +99,11 @@ public class App {
         String currency = chooseCurrency();
         LocalDate startDate = choosePeriodFromWeekToOneYear();
         CurrencyNoteA note = DataDownloader.getDataForSingleCurrency(currency, startDate, LocalDate.now());
+        List<Double> rates = getAllRatesMidFromCurrencyNote(note);
         System.out.println("Data from " + startDate + " to " + LocalDate.now() + " for currency " + currency);
-        System.out.println("growth sessions: " + sessionsAnalyzer.calculateGrowthSessionsAmount(note));
-        System.out.println("downward sessions: " + sessionsAnalyzer.calculateDownwardSessionsAmount(note));
-        System.out.println("stable sessions: " + sessionsAnalyzer.calculateStableSessionsAmount(note));
+        System.out.println("growth sessions: " + sessionsAnalyzer.calculateGrowthSessionsAmount(rates));
+        System.out.println("downward sessions: " + sessionsAnalyzer.calculateDownwardSessionsAmount(rates));
+        System.out.println("stable sessions: " + sessionsAnalyzer.calculateStableSessionsAmount(rates));
         pressEnterToContinue();
         mainMenuControl();
     }

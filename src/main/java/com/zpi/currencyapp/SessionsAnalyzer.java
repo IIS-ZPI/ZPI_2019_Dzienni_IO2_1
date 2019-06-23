@@ -1,7 +1,6 @@
 package com.zpi.currencyapp;
 
-import com.zpi.datamodel.CurrencyNoteA;
-import com.zpi.datamodel.RateA;
+import java.util.List;
 
 public class SessionsAnalyzer {
 
@@ -12,13 +11,12 @@ public class SessionsAnalyzer {
      *            rates to calculate growth sessions
      * @return amount of growth sessions
      */
-    public int calculateGrowthSessionsAmount(CurrencyNoteA Note) {
+    public int calculateGrowthSessionsAmount(List<Double> ratesMid) {
         int growthSession = 0;
         boolean isGrowing = false;
-        RateA temp = Note.getRates()
-                         .get(0);
-        for (RateA rate : Note.getRates()) {
-            if (rate.getMid() > temp.getMid()) {
+        double temp = ratesMid.get(0);
+        for (Double rate : ratesMid) {
+            if (rate > temp) {
                 if (!isGrowing) {
                     growthSession++;
                     isGrowing = true;
@@ -38,13 +36,12 @@ public class SessionsAnalyzer {
      *            rates to calculate decrease sessions
      * @return amount of decrease sessions
      */
-    public int calculateDownwardSessionsAmount(CurrencyNoteA Note) {
+    public int calculateDownwardSessionsAmount(List<Double> ratesMid) {
         int decraseSession = 0;
         boolean isDecreasing = false;
-        RateA temp = Note.getRates()
-                         .get(0);
-        for (RateA rate : Note.getRates()) {
-            if (rate.getMid() < temp.getMid()) {
+        double temp = ratesMid.get(0);
+        for (double rate : ratesMid) {
+            if (rate < temp) {
                 if (!isDecreasing) {
                     decraseSession++;
                     isDecreasing = true;
@@ -64,13 +61,12 @@ public class SessionsAnalyzer {
      *            rates to calculate stable sessions
      * @return amount of stable sessions
      */
-    public int calculateStableSessionsAmount(CurrencyNoteA Note) {
+    public int calculateStableSessionsAmount(List<Double> ratesMid) {
         int stableSessions = 0;
         boolean isStable = false;
-        RateA temp = Note.getRates()
-                         .get(0);
-        for (RateA rate : Note.getRates()) {
-            if (rate.getMid() == temp.getMid() && temp != rate) {
+        double temp = -1;
+        for (double rate : ratesMid) {
+            if (rate == temp && rate >= 0) {
                 if (!isStable) {
                     stableSessions++;
                     isStable = true;
