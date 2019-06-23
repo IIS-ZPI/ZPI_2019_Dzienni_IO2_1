@@ -69,7 +69,7 @@ public class StatisticalFeature {
         for (int i = 0; i < ratesSize; i++) {
             sum += Math.pow(ratesMid.get(i) - average, 2);
         }
-        double standardDev = Math.sqrt(sum / (ratesSize - 1));
+        double standardDev = Math.sqrt(sum / ratesSize);
         double coefficientOfVariation = standardDev / average;
         return coefficientOfVariation;
     }
