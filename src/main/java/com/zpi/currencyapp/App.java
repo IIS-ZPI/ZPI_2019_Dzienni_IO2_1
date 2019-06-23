@@ -11,6 +11,13 @@ import com.zpi.datamodel.CurrencyNoteA;
 import com.zpi.datamodel.TableA;
 import com.zpi.datamodel.TableRateA;
 
+/**
+ * This is a model class of api
+ *
+ * @see java.lang.Object
+ * @author dominik3131
+ */
+
 public class App {
 
     private BufferedReader reader;
@@ -19,6 +26,11 @@ public class App {
     private DistributionOfChangesFeature distributionOfChangesFeature;
     private TableA availableCurrencies;
 
+    /**
+     * App constructor No-argument constructor initializes instance variables
+     *
+     */
+
     public App() {
         reader = new BufferedReader(new InputStreamReader(System.in));
         sessionsAnalyzer = new SessionsAnalyzer();
@@ -26,13 +38,34 @@ public class App {
         distributionOfChangesFeature = new DistributionOfChangesFeature();
     }
 
+    /**
+     * main function of application
+     *
+     * @throws IOException
+     *             due to read Input data
+     */
+
     public static void main(String[] args) throws IOException {
         new App().start();
     }
 
+    /**
+     * start application and transfer control to App object
+     *
+     * @throws IOException
+     *             due to read Input data
+     */
+
     public void start() throws IOException {
         mainMenuControl();
     }
+
+    /**
+     * control of application and control the application flow invoke a method with user wish
+     *
+     * @throws IOException
+     *             due to read Input data
+     */
 
     private void mainMenuControl() throws IOException {
         printMainMenuChoices();
@@ -64,6 +97,14 @@ public class App {
 
     }
 
+    /**
+     * method invoke calculate distribution of changes and show results in output
+     *
+     * @see #DistributionOfChangesFeature
+     * @throws IOException
+     *             due to read Input data
+     */
+
     private void distributionOfChangesControl() throws IOException {
         System.out.println("Choose first currency");
         String currency1 = chooseCurrency();
@@ -81,6 +122,14 @@ public class App {
         mainMenuControl();
     }
 
+    /**
+     * method invoke calculate statistical measures and show results in output
+     *
+     * @see #StatisticalMeasures object
+     * @throws IOException
+     *             due to read Input data
+     */
+
     private void statisticalMeasuresControl() throws IOException {
         String currency = chooseCurrency();
         LocalDate startDate = choosePeriodFromWeekToOneYear();
@@ -95,6 +144,14 @@ public class App {
         mainMenuControl();
     }
 
+    /**
+     * method invoke sessions statistics and show results in output
+     *
+     * @see #SessionAnalizyer object
+     * @throws IOException
+     *             due to read Input data
+     */
+
     private void sessionsStaticticsControl() throws IOException {
         String currency = chooseCurrency();
         LocalDate startDate = choosePeriodFromWeekToOneYear();
@@ -108,6 +165,10 @@ public class App {
         mainMenuControl();
     }
 
+    /**
+     * method showing options to choose from
+     */
+
     private void printMainMenuChoices() {
         System.out.println("---------------------------------");
         System.out.println("1. Growth, downward and stable sessions statistics");
@@ -116,6 +177,10 @@ public class App {
         System.out.println("4. Exit from app");
         System.out.println("---------------------------------");
     }
+
+    /**
+     * method showing periods of time to choose from
+     */
 
     private void printPeriodFromWeekToOneYearChoices() {
         System.out.println("---------------------------------");
@@ -135,6 +200,10 @@ public class App {
         System.out.println("---------------------------------");
     }
 
+    /**
+     * method showing available currencies to perform calculations based on them
+     */
+
     private void printAvailableCurrencies() {
         System.out.println("---------------------------------");
         System.out.println("AVAILABLE CURRENCIES TO CHOOSE");
@@ -143,6 +212,15 @@ public class App {
         }
         System.out.println("---------------------------------");
     }
+
+    /**
+     * method invoke special function depend on chose period of time
+     *
+     * @see #DataDownloader
+     * @throws IOException
+     *             due to read Input data
+     * @return a <code> LocalDate </code> actual date
+     */
 
     private LocalDate choosePeriodFromWeekToOneYear() throws IOException {
         printPeriodFromWeekToOneYearChoices();
@@ -172,6 +250,15 @@ public class App {
         return LocalDate.now();
     }
 
+    /**
+     * method invoke special function depend on chose period one or three months
+     *
+     * @see #DataDownloader
+     * @throws IOException
+     *             due to read Input data
+     * @return a <code> LocalDate </code> actual date
+     */
+
     private LocalDate choosePeriodOneMonthOrThree() throws IOException {
         printPeriodOneMonthOrThreeChoices();
         boolean isChoosenOptionCorrect = false;
@@ -192,6 +279,15 @@ public class App {
         return LocalDate.now();
     }
 
+    /**
+     * method invoke special function depend on chose currency
+     *
+     * @see #DataDownloader
+     * @throws IOException
+     *             due to read Input data
+     * @return a <code> string </code> currency
+     */
+
     private String chooseCurrency() throws IOException {
         printAvailableCurrencies();
         String currency = null;
@@ -208,6 +304,15 @@ public class App {
         return currency;
     }
 
+    /**
+     * method to check if currency is correct
+     *
+     * @param code
+     *            as input user code
+     * @see #DataDownloader
+     * @return a <code> boolean </code> value of the correctness
+     */
+
     private boolean checkIfChoosenCurrencyIsCorrect(String code) {
         for (TableRateA item : availableCurrencies.getRates()) {
             if (item.getCode()
@@ -222,11 +327,23 @@ public class App {
         // TODO Auto-generated method stub
     }
 
+    /**
+     * method to get time from now to last week
+     *
+     * @return a <code> LocalDate </code> time between now and last week
+     */
+
     private LocalDate getLastWeek() {
         return LocalDate.now()
                         .minusWeeks(1)
                         .minusDays(1);
     }
+
+    /**
+     * method to get time from now to two last week
+     *
+     * @return a <code> LocalDate </code> time between now and two last week
+     */
 
     private LocalDate getLastTwoWeeks() {
         return LocalDate.now()
@@ -234,11 +351,23 @@ public class App {
                         .minusDays(1);
     }
 
+    /**
+     * method to get time from now to last month
+     *
+     * @return a <code> LocalDate </code> time between now and last month
+     */
+
     private LocalDate getLastMonth() {
         return LocalDate.now()
                         .minusMonths(1)
                         .minusDays(1);
     }
+
+    /**
+     * method to get time from now to last quarter
+     *
+     * @return a <code> LocalDate </code> time between now and last quarter
+     */
 
     private LocalDate getLastQuarter() {
         return LocalDate.now()
@@ -246,11 +375,23 @@ public class App {
                         .minusDays(1);
     }
 
+    /**
+     * method to get time from now to last half of year
+     *
+     * @return a <code> LocalDate </code> time between now and to last half of year
+     */
+
     private LocalDate getLastHalfOfYear() {
         return LocalDate.now()
                         .minusMonths(6)
                         .minusDays(1);
     }
+
+    /**
+     * method to get time from now to last year
+     *
+     * @return a <code> LocalDate </code> time between now and to last year
+     */
 
     private LocalDate getLastYear() {
         return LocalDate.now()
@@ -258,10 +399,24 @@ public class App {
                         .minusDays(1);
     }
 
+    /**
+     * method to get key enter to confirm choice
+     *
+     * @throws IOException
+     *             due to read Input data
+     */
+
     private void pressEnterToContinue() throws IOException {
         System.out.println("Press Enter to continue");
         reader.readLine();
     }
+
+    /**
+     * method to get all rates mid from currency note
+     *
+     * @see #DataDownloader
+     * @return a <code> List<Double> </code> all rates mid from currency note
+     */
 
     private List<Double> getAllRatesMidFromCurrencyNote(CurrencyNoteA noteA) {
         return noteA.getRates()
