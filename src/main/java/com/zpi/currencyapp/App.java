@@ -85,7 +85,7 @@ public class App {
         System.out.println("Data from " + startDate + " to " + LocalDate.now() + " for currency " + currency);
         System.out.println("growth sessions: " + sessionsAnalyzer.calculateGrowthSessionsAmount(note));
         System.out.println("downward sessions: " + sessionsAnalyzer.calculateDownwardSessionsAmount(note));
-        System.out.println("stable sessions: " + sessionsAnalyzer.calculatestableSessionsAmount(note));
+        System.out.println("stable sessions: " + sessionsAnalyzer.calculateStableSessionsAmount(note));
         pressEnterToContinue();
         mainMenuControl();
     }
