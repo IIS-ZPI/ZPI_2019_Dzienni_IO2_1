@@ -105,7 +105,7 @@ public class DataDownloader {
 	 * @return TableA object having list of all available currencies sorted by code
 	 */
 	public static TableA getListOfCurrencies() {
-		String uri = "http://api.nbp.pl/api/exchangerates/tables/a/"+LocalDate.now().minusDays(1).toString()+"?format=json";
+		String uri = "http://api.nbp.pl/api/exchangerates/tables/a/?format=json";
 		String jsonStringData = executeRequest(uri);
 		Gson gson = new Gson();
 		TableA[] temp = gson.fromJson(jsonStringData, TableA[].class);

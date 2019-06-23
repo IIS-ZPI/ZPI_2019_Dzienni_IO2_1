@@ -14,11 +14,14 @@ public class App {
 	private BufferedReader reader;
 	private String choosenOption;
 	private SessionsAnalyzer sessionsAnalyzer;
+	private DistributionOfChangesFeature distributionOfChangesFeature;
 	private TableA availableCurrencies;
+
 	public App() {
 		reader = new BufferedReader(new InputStreamReader(System.in));
-		sessionsAnalyzer=new SessionsAnalyzer();
+		sessionsAnalyzer = new SessionsAnalyzer();
 		availableCurrencies = DataDownloader.getListOfCurrencies();
+		distributionOfChangesFeature=new DistributionOfChangesFeature();
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -59,31 +62,41 @@ public class App {
 	}
 
 	private void distributionOfChangesControl() throws IOException {
-		// TODO Auto-generated method stub
-		System.out.println("not yet implemented");
+		System.out.println("Choose first currency");
+		String currency1 = chooseCurrency();
+		System.out.println("Choose second currency");
+		String currency2 = chooseCurrency();
+		while(currency1.equals(currency2)) {
+			System.out.println("Second currency cannot be the same as first currency. Choose Second currency again");
+			currency2 = chooseCurrency();
+		}
+		LocalDate startDate = choosePeriodOneMonthOrThree();
+		CurrencyNoteA note1 = DataDownloader.getDataForSingleCurrency(currency1, startDate, LocalDate.now());
+		CurrencyNoteA note2 = DataDownloader.getDataForSingleCurrency(currency2, startDate, LocalDate.now());
+		distributionOfChangesFeature.printDistributionOfChanges(note1, note2);
 		pressEnterToContinue();
 		mainMenuControl();
 	}
 
 	private void statisticalMeasuresControl() throws IOException {
-		 String currency = chooseCurrency();
-	        LocalDate startDate = choosePeriodFromWeekToOneYear();
-	        CurrencyNoteA note = DataDownloader.getDataForSingleCurrency(currency, startDate, LocalDate.now());
-	        StatisticalFeature statisticalFeature = new StatisticalFeature(currency, note);
-	        System.out.println("Data from " + startDate + " to " + LocalDate.now() + " for currency " + currency);
-	        System.out.println("Median: " + statisticalFeature.calculateMedian());
-	        System.out.println("Dominant: " + statisticalFeature.calculateDominant());
-	        System.out.println("Standard Deviation: " + statisticalFeature.standardDeviation());
-	        System.out.println("Coefficient Of Variation: " + statisticalFeature.coefficientOfVariation());
-	        pressEnterToContinue();
-	        mainMenuControl();
+		String currency = chooseCurrency();
+		LocalDate startDate = choosePeriodFromWeekToOneYear();
+		CurrencyNoteA note = DataDownloader.getDataForSingleCurrency(currency, startDate, LocalDate.now());
+		StatisticalFeature statisticalFeature = new StatisticalFeature(currency, note);
+		System.out.println("Data from " + startDate + " to " + LocalDate.now() + " for currency " + currency);
+		System.out.println("Median: " + statisticalFeature.calculateMedian());
+		System.out.println("Dominant: " + statisticalFeature.calculateDominant());
+		System.out.println("Standard Deviation: " + statisticalFeature.standardDeviation());
+		System.out.println("Coefficient Of Variation: " + statisticalFeature.coefficientOfVariation());
+		pressEnterToContinue();
+		mainMenuControl();
 	}
 
 	private void sessionsStaticticsControl() throws IOException {
-		String currency=chooseCurrency();
-		LocalDate startDate=choosePeriodFromWeekToOneYear();
+		String currency = chooseCurrency();
+		LocalDate startDate = choosePeriodFromWeekToOneYear();
 		CurrencyNoteA note = DataDownloader.getDataForSingleCurrency(currency, startDate, LocalDate.now());
-		System.out.println("Data from "+ startDate+ " to " + LocalDate.now()+" for currency "+currency);
+		System.out.println("Data from " + startDate + " to " + LocalDate.now() + " for currency " + currency);
 		System.out.println("growth sessions: " + sessionsAnalyzer.calculateGrowthSessionsAmount(note));
 		System.out.println("downward sessions: " + sessionsAnalyzer.calculateDownwardSessionsAmount(note));
 		System.out.println("stable sessions: " + sessionsAnalyzer.calculateStableSessionsAmount(note));
@@ -121,8 +134,8 @@ public class App {
 	private void printAvailableCurrencies() {
 		System.out.println("---------------------------------");
 		System.out.println("AVAILABLE CURRENCIES TO CHOOSE");
-		for(TableRateA item:availableCurrencies.getRates()) {
-			System.out.println(item.getCode()+"  -  "+ item.getCurrency());
+		for (TableRateA item : availableCurrencies.getRates()) {
+			System.out.println(item.getCode() + "  -  " + item.getCurrency());
 		}
 		System.out.println("---------------------------------");
 	}
@@ -156,7 +169,7 @@ public class App {
 	}
 
 	private LocalDate choosePeriodOneMonthOrThree() throws IOException {
-		printPeriodFromWeekToOneYearChoices();
+		printPeriodOneMonthOrThreeChoices();
 		boolean isChoosenOptionCorrect = false;
 		while (!isChoosenOptionCorrect) {
 			System.out.println("What period you want to choose?");
@@ -182,20 +195,23 @@ public class App {
 		while (!isChoosenOptionCorrect) {
 			System.out.println("What currency you want to choose? Enter code of choosen currency");
 			currency = reader.readLine();
-			currency=currency.toUpperCase();
+			currency = currency.toUpperCase();
 			isChoosenOptionCorrect = checkIfChoosenCurrencyIsCorrect(currency);
-			if(!isChoosenOptionCorrect) {
+			if (!isChoosenOptionCorrect) {
 				System.out.println("There is not such currency available. Type Again.");
 			}
 		}
 		return currency;
 	}
+
 	private boolean checkIfChoosenCurrencyIsCorrect(String code) {
-		for(TableRateA item: availableCurrencies.getRates()) {
-			if(item.getCode().equals(code)) return true;
+		for (TableRateA item : availableCurrencies.getRates()) {
+			if (item.getCode().equals(code))
+				return true;
 		}
 		return false;
 	}
+
 	private void chooseOperation() {
 		// TODO Auto-generated method stub
 	}
@@ -223,7 +239,7 @@ public class App {
 	private LocalDate getLastYear() {
 		return LocalDate.now().minusYears(1).minusDays(1);
 	}
-	
+
 	private void pressEnterToContinue() throws IOException {
 		System.out.println("Press Enter to continue");
 		reader.readLine();
