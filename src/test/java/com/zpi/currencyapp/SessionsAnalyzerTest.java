@@ -3,49 +3,29 @@ package com.zpi.currencyapp;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-import com.zpi.datamodel.CurrencyNoteA;
-import com.zpi.datamodel.RateA;
 
 public class SessionsAnalyzerTest {
 
-    private static final String sessionsPath = "src/test/java/resources/SessionsAnalyzerData.json";
     private SessionsAnalyzer sessionsAnalyzer;
-    private CurrencyNoteA noteA;
-    private static CurrencyNoteA notaAFromFile;
-
-    FileReader reader;
-
-    @BeforeClass
-    public static void setUpClass() throws FileNotFoundException {
-        JsonReader reader = new JsonReader(new FileReader(sessionsPath));
-        Gson gson = new Gson();
-        notaAFromFile = gson.fromJson(reader, CurrencyNoteA.class);
-    }
+    private List<Double> rates = new ArrayList<>();
 
     @Before
     public void setUp() {
         sessionsAnalyzer = new SessionsAnalyzer();
-        noteA = new CurrencyNoteA();
-        RateA rateA = new RateA();
-        rateA.setMid(5);
-        noteA.getRates()
-             .add(rateA);
+        rates.add(5.0);
     }
 
     @Test
     public void calcuateSessionsForOneNodeList_sessionWontChanged() {
-        int growth = sessionsAnalyzer.calculateGrowthSessionsAmount(noteA);
-        int downword = sessionsAnalyzer.calculateDownwardSessionsAmount(noteA);
-        int stable = sessionsAnalyzer.calculateStableSessionsAmount(noteA);
+        int growth = sessionsAnalyzer.calculateGrowthSessionsAmount(rates);
+        int downword = sessionsAnalyzer.calculateDownwardSessionsAmount(rates);
+        int stable = sessionsAnalyzer.calculateStableSessionsAmount(rates);
 
         assertThat(growth, equalTo(0));
         assertThat(downword, equalTo(0));
@@ -54,13 +34,11 @@ public class SessionsAnalyzerTest {
 
     @Test
     public void calculateSessionsWith_twoRates_expectOneGrowth() {
-        RateA rateA2 = new RateA();
-        rateA2.setMid(8);
-        noteA.getRates()
-             .add(rateA2);
-        int growth = sessionsAnalyzer.calculateGrowthSessionsAmount(noteA);
-        int downword = sessionsAnalyzer.calculateDownwardSessionsAmount(noteA);
-        int stable = sessionsAnalyzer.calculateStableSessionsAmount(noteA);
+        rates.add(7.0);
+
+        int growth = sessionsAnalyzer.calculateGrowthSessionsAmount(rates);
+        int downword = sessionsAnalyzer.calculateDownwardSessionsAmount(rates);
+        int stable = sessionsAnalyzer.calculateStableSessionsAmount(rates);
 
         assertThat(growth, equalTo(1));
         assertThat(downword, equalTo(0));
@@ -69,13 +47,11 @@ public class SessionsAnalyzerTest {
 
     @Test
     public void calculateSessionsWith_twoRates_expectOneDownword() {
-        RateA rateA2 = new RateA();
-        rateA2.setMid(4);
-        noteA.getRates()
-             .add(rateA2);
-        int growth = sessionsAnalyzer.calculateGrowthSessionsAmount(noteA);
-        int downword = sessionsAnalyzer.calculateDownwardSessionsAmount(noteA);
-        int stable = sessionsAnalyzer.calculateStableSessionsAmount(noteA);
+        rates.add(3.0);
+
+        int growth = sessionsAnalyzer.calculateGrowthSessionsAmount(rates);
+        int downword = sessionsAnalyzer.calculateDownwardSessionsAmount(rates);
+        int stable = sessionsAnalyzer.calculateStableSessionsAmount(rates);
 
         assertThat(growth, equalTo(0));
         assertThat(downword, equalTo(1));
@@ -84,13 +60,11 @@ public class SessionsAnalyzerTest {
 
     @Test
     public void calculateSessionsWith_twoRates_expectOneStable() {
-        RateA rateA2 = new RateA();
-        rateA2.setMid(5);
-        noteA.getRates()
-             .add(rateA2);
-        int growth = sessionsAnalyzer.calculateGrowthSessionsAmount(noteA);
-        int downword = sessionsAnalyzer.calculateDownwardSessionsAmount(noteA);
-        int stable = sessionsAnalyzer.calculateStableSessionsAmount(noteA);
+        rates.add(5.0);
+
+        int growth = sessionsAnalyzer.calculateGrowthSessionsAmount(rates);
+        int downword = sessionsAnalyzer.calculateDownwardSessionsAmount(rates);
+        int stable = sessionsAnalyzer.calculateStableSessionsAmount(rates);
 
         assertThat(growth, equalTo(0));
         assertThat(downword, equalTo(0));
@@ -98,20 +72,23 @@ public class SessionsAnalyzerTest {
     }
 
     @Test
-    public void calculateSessionsFormFile_expectFiveGrowth() throws FileNotFoundException {
-        int growth = sessionsAnalyzer.calculateGrowthSessionsAmount(notaAFromFile);
-        assertThat(growth, equalTo(5));
+    public void calculateSessionGrowth_expectFourGrowth() {
+        rates.addAll(Arrays.asList(new Double[] {5.0, 7.0, 2.1, 3.5, 3.0, 1.2, 1.7, 2.2, 2.2, 5.0}));
+        int growth = sessionsAnalyzer.calculateGrowthSessionsAmount(rates);
+        assertThat(growth, equalTo(4));
     }
 
     @Test
-    public void calculateSessionsFormFile_expectThreeDownword() throws FileNotFoundException {
-        int growth = sessionsAnalyzer.calculateDownwardSessionsAmount(notaAFromFile);
-        assertThat(growth, equalTo(5));
+    public void calculateSessionDownword_expectThreeDownword() {
+        rates.addAll(Arrays.asList(new Double[] {5.0, 7.0, 2.1, 3.5, 3.0, 1.2, 1.7, 2.2, 2.2, 5.0, 4.5}));
+        int downword = sessionsAnalyzer.calculateDownwardSessionsAmount(rates);
+        assertThat(downword, equalTo(3));
     }
 
     @Test
-    public void calculateSessionsFormFile_expectTwoStable() throws FileNotFoundException {
-        int growth = sessionsAnalyzer.calculateStableSessionsAmount(notaAFromFile);
-        assertThat(growth, equalTo(2));
+    public void calculateSessionStable_expectTwoStable() {
+        rates.addAll(Arrays.asList(new Double[] {5.0, 7.0, 2.1, 3.5, 3.0, 1.2, 1.7, 2.2, 2.2, 5.0}));
+        int stable = sessionsAnalyzer.calculateStableSessionsAmount(rates);
+        assertThat(stable, equalTo(2));
     }
 }
