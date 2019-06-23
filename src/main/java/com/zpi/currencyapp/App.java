@@ -85,7 +85,7 @@ public class App {
         String currency = chooseCurrency();
         LocalDate startDate = choosePeriodFromWeekToOneYear();
         CurrencyNoteA note = DataDownloader.getDataForSingleCurrency(currency, startDate, LocalDate.now());
-        StatisticalFeature statisticalFeature = new StatisticalFeature(currency, note);
+        StatisticalFeature statisticalFeature = new StatisticalFeature(getAllRatesMidFromCurrencyNote(note));
         System.out.println("Data from " + startDate + " to " + LocalDate.now() + " for currency " + currency);
         System.out.println("Median: " + statisticalFeature.calculateMedian());
         System.out.println("Dominant: " + statisticalFeature.calculateDominant());

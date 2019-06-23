@@ -1,107 +1,75 @@
 package com.zpi.currencyapp;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-
-import com.zpi.datamodel.CurrencyNoteA;
-import com.zpi.datamodel.RateA;
 
 public class StatisticalFeature {
 
-    private CurrencyNoteA note;
+    private List<Double> ratesMid;
 
-    public StatisticalFeature(String currency, CurrencyNoteA note) {
-        this.note = note;
+    public StatisticalFeature(List<Double> ratesMid) {
+        this.ratesMid = ratesMid;
     }
 
     public double calculateMedian() {
-        List<RateA> toCalculate = note.getRates();
-        int counter = toCalculate.size();
-        Comparator<RateA> c = new Comparator<RateA>() {
-
-            @Override
-            public int compare(RateA o1, RateA o2) {
-                return Double.valueOf(o1.getMid())
-                             .compareTo(Double.valueOf(o2.getMid()));
-            }
-        };
-        Collections.sort(toCalculate, c);
-        if (counter % 2 == 0) {
-            return toCalculate.get(counter / 2)
-                              .getMid();
+        int ratesSize = ratesMid.size();
+        Collections.sort(ratesMid);
+        if (ratesSize % 2 == 1) {
+            return ratesMid.get(ratesSize / 2);
         } else {
-            return (toCalculate.get(counter / 2)
-                               .getMid()
-                    + toCalculate.get(counter / 2)
-                                 .getMid())
-                   / 2;
+            return (ratesMid.get(ratesSize / 2 - 1) + ratesMid.get(ratesSize / 2)) / 2;
         }
     }
 
     public double calculateDominant() {
-        List<RateA> toCalculate = note.getRates();
-        int counter = toCalculate.size();
         double dominanta = 0;
         int maks = 0;
         int licznik = 0;
 
-        for (int i = 0; i < toCalculate.size(); i++) {
+        int ratesSize = ratesMid.size();
+        for (int i = 0; i < ratesSize; i++) {
             licznik = 0;
-            for (int k = 0; k < toCalculate.size(); k++) {
-                if (toCalculate.get(i)
-                               .getMid() == toCalculate.get(k)
-                                                       .getMid()) {
+            for (int k = 0; k < ratesSize; k++) {
+                if (ratesMid.get(i)
+                            .equals(ratesMid.get(k))) {
                     licznik++;
                     if (licznik > maks) {
-                        dominanta = toCalculate.get(i)
-                                               .getMid();
+                        dominanta = ratesMid.get(i);
                         maks = licznik;
                     }
                 }
-
             }
         }
         return dominanta;
     }
 
     public double standardDeviation() {
-        List<RateA> toCalculate = note.getRates();
-        int counter = toCalculate.size();
+        int ratesSize = ratesMid.size();
         double sum = 0;
-        for (int i = 0; i < toCalculate.size(); i++) {
-            sum += toCalculate.get(i)
-                              .getMid();
+        for (int i = 0; i < ratesSize; i++) {
+            sum += ratesMid.get(i);
         }
-        double average = sum / counter;
-        sum = 0;
-        for (int i = 0; i < toCalculate.size(); i++) {
-            sum += Math.pow(toCalculate.get(i)
-                                       .getMid()
-                            - average,
-                    2);
+        double average = sum / ratesSize;
+        sum = 0.0;
+        for (int i = 0; i < ratesSize; i++) {
+            sum += Math.pow(ratesMid.get(i) - average, 2);
         }
-        double standardDev = Math.sqrt(sum / (counter - 1));
+        double standardDev = Math.sqrt(sum / ratesSize);
         return standardDev;
     }
 
     public double coefficientOfVariation() {
-        List<RateA> toCalculate = note.getRates();
-        int counter = toCalculate.size();
+        int ratesSize = ratesMid.size();
         double sum = 0;
-        for (int i = 0; i < toCalculate.size(); i++) {
-            sum += toCalculate.get(i)
-                              .getMid();
+        for (int i = 0; i < ratesSize; i++) {
+            sum += ratesMid.get(i);
         }
-        double average = sum / counter;
+        double average = sum / ratesSize;
         sum = 0;
-        for (int i = 0; i < toCalculate.size(); i++) {
-            sum += Math.pow(toCalculate.get(i)
-                                       .getMid()
-                            - average,
-                    2);
+        for (int i = 0; i < ratesSize; i++) {
+            sum += Math.pow(ratesMid.get(i) - average, 2);
         }
-        double standardDev = Math.sqrt(sum / (counter - 1));
+        double standardDev = Math.sqrt(sum / ratesSize);
         double coefficientOfVariation = standardDev / average;
         return coefficientOfVariation;
     }
