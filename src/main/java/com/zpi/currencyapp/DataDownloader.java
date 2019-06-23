@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
+import java.util.Collection;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -14,6 +15,10 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 import com.google.gson.Gson;
 import com.zpi.datamodel.CurrencyNoteA;
+import com.zpi.datamodel.TableA;
+import com.zpi.datamodel.TableRateA;
+
+import edu.emory.mathcs.backport.java.util.Collections;
 
 public class DataDownloader {
 	//TO DO dodać obsługę błędnych zakresów dat oraz gdy pobrane dane są puste
@@ -93,6 +98,19 @@ public class DataDownloader {
 				e.printStackTrace();
 			}
 		}
+		return data;
+	}
+	/**
+	 * Downloads whole table A to get list of currencies that are available to choose
+	 * @return TableA object having list of all available currencies sorted by code
+	 */
+	public static TableA getListOfCurrencies() {
+		String uri = "http://api.nbp.pl/api/exchangerates/tables/a/"+LocalDate.now().minusDays(1).toString()+"?format=json";
+		String jsonStringData = executeRequest(uri);
+		Gson gson = new Gson();
+		TableA[] temp = gson.fromJson(jsonStringData, TableA[].class);
+		TableA data=temp[0];
+		data.getRates().sort((TableRateA d1,TableRateA d2)->d1.getCode().compareTo(d2.getCode()));
 		return data;
 	}
 }
