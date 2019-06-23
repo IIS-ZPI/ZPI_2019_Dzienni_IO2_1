@@ -9,7 +9,7 @@ public class SessionsAnalyzer {
      *
      * @param Note
      *            rates to calculate growth sessions
-     * @return amount of growth sessions
+     * @return a <code> integer </code> amount of growth sessions
      */
     public int calculateGrowthSessionsAmount(List<Double> ratesMid) {
         int growthSession = 0;
@@ -34,7 +34,7 @@ public class SessionsAnalyzer {
      *
      * @param Note
      *            rates to calculate decrease sessions
-     * @return amount of decrease sessions
+     * @return a <code> integer </code> amount of decrease sessions
      */
     public int calculateDownwardSessionsAmount(List<Double> ratesMid) {
         int decraseSession = 0;
@@ -59,7 +59,7 @@ public class SessionsAnalyzer {
      *
      * @param Note
      *            rates to calculate stable sessions
-     * @return amount of stable sessions
+     * @return a <code> integer </code> amount of stable sessions
      */
     public int calculateStableSessionsAmount(List<Double> ratesMid) {
         int stableSessions = 0;
