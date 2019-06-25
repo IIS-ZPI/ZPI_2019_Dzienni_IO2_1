@@ -1,4 +1,7 @@
 language: java
+install: true
+script:
+- mvn install
 jdk:
   - oraclejdk8
 sudo: false
@@ -17,10 +20,10 @@ deploy:
   provider: releases
   api_key:
     secure: GIT_AUTH
-  file: "target/*.jar"
+  file: "target/*jar-with-dependencies.jar"
   skip_cleanup: true
   on:
     repo: IIS-ZPI/ZPI_2019_Dzienni_IO2_1
     branches:
       only:
-- master
+        - master

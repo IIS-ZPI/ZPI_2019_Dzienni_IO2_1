@@ -1,109 +1,113 @@
 package com.zpi.currencyapp;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import com.zpi.datamodel.CurrencyNoteA;
-import com.zpi.datamodel.RateA;
+/**
+ * This is a model class to measure statistical functions
+ *
+ * @see java.lang.Object
+ * @author pawo97
+ */
 
 public class StatisticalFeature {
 
-    private CurrencyNoteA note;
+    private List<Double> ratesMid;
 
-    public StatisticalFeature(String currency, CurrencyNoteA note) {
-        this.note = note;
+    /**
+     * StatisticalFeature constructor
+     *
+     * @param ratesMid
+     *            is a lists of currency values download from Web
+     */
+
+    public StatisticalFeature(List<Double> ratesMid) {
+        this.ratesMid = ratesMid;
     }
+
+    /**
+     * calculate average of all download values
+     * 
+     * @return a <code> double </code>
+     */
+
+    public double averageOfValues() {
+        double sum = 0;
+        for (Double d : ratesMid) {
+            sum += d;
+        }
+        return sum / ratesMid.size();
+    }
+
+    /**
+     * calculate median of all download values
+     * 
+     * @return a <code> double </code>
+     */
 
     public double calculateMedian() {
-        List<RateA> toCalculate = note.getRates();
-        int counter = toCalculate.size();
-        Comparator<RateA> c = new Comparator<RateA>() {
-
-            @Override
-            public int compare(RateA o1, RateA o2) {
-                return Double.valueOf(o1.getMid())
-                             .compareTo(Double.valueOf(o2.getMid()));
-            }
-        };
-        Collections.sort(toCalculate, c);
-        if (counter % 2 == 0) {
-            return toCalculate.get(counter / 2)
-                              .getMid();
+        int ratesSize = ratesMid.size();
+        Collections.sort(ratesMid);
+        if (ratesSize % 2 == 1) {
+            return ratesMid.get(ratesSize / 2);
         } else {
-            return (toCalculate.get(counter / 2)
-                               .getMid()
-                    + toCalculate.get(counter / 2)
-                                 .getMid())
-                   / 2;
+            return (ratesMid.get(ratesSize / 2 - 1) + ratesMid.get(ratesSize / 2)) / 2;
         }
     }
 
-    public double calculateDominant() {
-        List<RateA> toCalculate = note.getRates();
-        int counter = toCalculate.size();
-        double dominanta = 0;
-        int maks = 0;
-        int licznik = 0;
+    /**
+     * calculate dominant of all download values
+     * 
+     * @return a <code> List<Double> </code> of dominantes values
+     */
 
-        for (int i = 0; i < toCalculate.size(); i++) {
-            licznik = 0;
-            for (int k = 0; k < toCalculate.size(); k++) {
-                if (toCalculate.get(i)
-                               .getMid() == toCalculate.get(k)
-                                                       .getMid()) {
-                    licznik++;
-                    if (licznik > maks) {
-                        dominanta = toCalculate.get(i)
-                                               .getMid();
-                        maks = licznik;
-                    }
-                }
-
+    public List<Double> calculateDominant() {
+        Map<Double, Integer> seen = new HashMap<>();
+        int max = 0;
+        List<Double> maxElems = new ArrayList<>();
+        for (Double value : ratesMid) {
+            if (seen.containsKey(value)) {
+                seen.put(value, seen.get(value) + 1);
+            } else {
+                seen.put(value, 1);
+            }
+            if (seen.get(value) > max) {
+                max = seen.get(value);
+                maxElems.clear();
+                maxElems.add(value);
+            } else if (seen.get(value) == max) {
+                maxElems.add(value);
             }
         }
-        return dominanta;
+        return maxElems;
     }
+
+    /**
+     * calculate standard deviation of all download values
+     * 
+     * @return a <code> double </code>
+     */
 
     public double standardDeviation() {
-        List<RateA> toCalculate = note.getRates();
-        int counter = toCalculate.size();
-        double sum = 0;
-        for (int i = 0; i < toCalculate.size(); i++) {
-            sum += toCalculate.get(i)
-                              .getMid();
+        double average = averageOfValues();
+        double sum = 0.0;
+        for (Double d : ratesMid) {
+            sum += Math.pow(d - average, 2);
         }
-        double average = sum / counter;
-        sum = 0;
-        for (int i = 0; i < toCalculate.size(); i++) {
-            sum += Math.pow(toCalculate.get(i)
-                                       .getMid()
-                            - average,
-                    2);
-        }
-        double standardDev = Math.sqrt(sum / (counter - 1));
+        double standardDev = Math.sqrt(sum / ratesMid.size());
         return standardDev;
     }
 
+    /**
+     * calculate coefficient of variation of all download values
+     * 
+     * @return a <code> double </code>
+     */
     public double coefficientOfVariation() {
-        List<RateA> toCalculate = note.getRates();
-        int counter = toCalculate.size();
-        double sum = 0;
-        for (int i = 0; i < toCalculate.size(); i++) {
-            sum += toCalculate.get(i)
-                              .getMid();
-        }
-        double average = sum / counter;
-        sum = 0;
-        for (int i = 0; i < toCalculate.size(); i++) {
-            sum += Math.pow(toCalculate.get(i)
-                                       .getMid()
-                            - average,
-                    2);
-        }
-        double standardDev = Math.sqrt(sum / (counter - 1));
-        double coefficientOfVariation = standardDev / average;
-        return coefficientOfVariation;
+        return standardDeviation() / averageOfValues();
     }
 
 }
