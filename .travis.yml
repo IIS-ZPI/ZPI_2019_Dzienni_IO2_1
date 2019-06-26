@@ -4,6 +4,7 @@ jdk:
   - oraclejdk8
 sudo: false
 script:
+  - mvn install
   - mvn validate
   - mvn compile
   - mvn test -B
