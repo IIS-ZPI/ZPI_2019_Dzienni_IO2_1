@@ -54,7 +54,7 @@ public class DataDownloader {
      *            to start period of time
      * @param EndDate
      *            to end period of time
-     * @return a <code> string </code> correct url code
+     * @return a <code> string </code> correct uri code
      */
 
     private static String createRequestUriForSingleCurrency(String currencyCode, LocalDate startDate, LocalDate endDate) {
@@ -70,9 +70,9 @@ public class DataDownloader {
      * Execute a request to web
      *
      * @param uri
-     *            to specify a url to download data -
+     *            to specify a uri to download data -
      *            "http://api.nbp.pl/api/exchangerates/rates/a/gbp/last/10/?format=json"
-     * @return a <code> string </code> correct url code
+     * @return a <code> string </code> correct uri code
      */
 
     private static String executeRequest(String uri) {
@@ -129,7 +129,6 @@ public class DataDownloader {
             try {
                 httpClient.close();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }

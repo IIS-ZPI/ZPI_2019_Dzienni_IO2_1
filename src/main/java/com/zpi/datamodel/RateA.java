@@ -53,8 +53,8 @@ public class RateA {
     /**
      * Set a effective date to object field
      *
-     * @param an
-     *            effectiveDate as a date depend of download values
+     * @param effectiveDate
+     *            as a date depend of download values
      */
 
     public void setEffectiveDate(String effectiveDate) {
@@ -64,8 +64,8 @@ public class RateA {
     /**
      * Set a mid values to object field
      *
-     * @param an
-     *            mid values from record
+     * @param mid
+     *            values from record
      */
     public void setMid(double mid) {
         this.mid = mid;

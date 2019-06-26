@@ -47,8 +47,8 @@ public class TableA {
     /**
      * Get a specify list of rates
      *
-     * @see #TableRateA
-     * @return a <code> List<TableRateA> </code> rates
+     * @see com.zpi.datamodel.TableRateA
+     * @return a <code> List of TableRateA </code> rates
      */
     public List<TableRateA> getRates() {
         return rates;

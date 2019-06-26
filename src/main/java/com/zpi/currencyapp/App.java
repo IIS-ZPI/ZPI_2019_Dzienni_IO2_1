@@ -3,9 +3,12 @@ package com.zpi.currencyapp;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.zpi.datamodel.CurrencyNoteA;
 import com.zpi.datamodel.TableA;
@@ -41,6 +44,8 @@ public class App {
     /**
      * main function of application
      *
+     * @param args
+     *            for input arguments for function
      * @throws IOException
      *             due to read Input data
      */
@@ -100,7 +105,7 @@ public class App {
     /**
      * method invoke calculate distribution of changes and show results in output
      *
-     * @see #DistributionOfChangesFeature
+     * @see com.zpi.currencyapp.DistributionOfChangesFeature
      * @throws IOException
      *             due to read Input data
      */
@@ -125,21 +130,36 @@ public class App {
     /**
      * method invoke calculate statistical measures and show results in output
      *
-     * @see #StatisticalMeasures object
+     * @see com.zpi.currencyapp.StatisticalFeature
      * @throws IOException
      *             due to read Input data
      */
 
     private void statisticalMeasuresControl() throws IOException {
+        DecimalFormat df = new DecimalFormat("#.###", new DecimalFormatSymbols(Locale.US));
         String currency = chooseCurrency();
         LocalDate startDate = choosePeriodFromWeekToOneYear();
         CurrencyNoteA note = DataDownloader.getDataForSingleCurrency(currency, startDate, LocalDate.now());
         StatisticalFeature statisticalFeature = new StatisticalFeature(getAllRatesMidFromCurrencyNote(note));
         System.out.println("Data from " + startDate + " to " + LocalDate.now() + " for currency " + currency);
-        System.out.println("Median: " + statisticalFeature.calculateMedian());
-        System.out.println("Dominant: " + statisticalFeature.calculateDominant());
-        System.out.println("Standard Deviation: " + statisticalFeature.standardDeviation());
-        System.out.println("Coefficient Of Variation: " + statisticalFeature.coefficientOfVariation());
+        System.out.println(
+                "----------------------------------------------------------------------------------------------------------------");
+        System.out.println("Median:                  | " + df.format(statisticalFeature.calculateMedian()));
+        System.out.println(
+                "----------------------------------------------------------------------------------------------------------------");
+        System.out.println("Dominant:                | "
+                           + statisticalFeature.calculateDominant()
+                                               .stream()
+                                               .map(value -> df.format(value))
+                                               .collect(ArrayList::new, ArrayList::add, ArrayList::addAll));
+        System.out.println(
+                "----------------------------------------------------------------------------------------------------------------");
+        System.out.println("Standard Deviation:      | " + df.format(statisticalFeature.standardDeviation()));
+        System.out.println(
+                "----------------------------------------------------------------------------------------------------------------");
+        System.out.println("Coefficient Of Variation:| " + df.format(statisticalFeature.coefficientOfVariation()));
+        System.out.println(
+                "----------------------------------------------------------------------------------------------------------------");
         pressEnterToContinue();
         mainMenuControl();
     }
@@ -147,7 +167,7 @@ public class App {
     /**
      * method invoke sessions statistics and show results in output
      *
-     * @see #SessionAnalizyer object
+     * @see com.zpi.currencyappSessionAnalizyer
      * @throws IOException
      *             due to read Input data
      */
@@ -214,9 +234,9 @@ public class App {
     }
 
     /**
-     * method invoke special function depend on chose period of time
+     * method invoke special function depend on chosen period of time
      *
-     * @see #DataDownloader
+     * @see com.zpi.DataDownloader
      * @throws IOException
      *             due to read Input data
      * @return a <code> LocalDate </code> actual date
@@ -253,7 +273,7 @@ public class App {
     /**
      * method invoke special function depend on chose period one or three months
      *
-     * @see #DataDownloader
+     * @see com.zpi.currencyapp.DataDownloader
      * @throws IOException
      *             due to read Input data
      * @return a <code> LocalDate </code> actual date
@@ -282,7 +302,7 @@ public class App {
     /**
      * method invoke special function depend on chose currency
      *
-     * @see #DataDownloader
+     * @see com.zpi.currencyapp.DataDownloader
      * @throws IOException
      *             due to read Input data
      * @return a <code> string </code> currency
@@ -309,7 +329,7 @@ public class App {
      *
      * @param code
      *            as input user code
-     * @see #DataDownloader
+     * @see com.zpi.currencyapp.DataDownloader
      * @return a <code> boolean </code> value of the correctness
      */
 
@@ -321,10 +341,6 @@ public class App {
             }
         }
         return false;
-    }
-
-    private void chooseOperation() {
-        // TODO Auto-generated method stub
     }
 
     /**
@@ -414,7 +430,7 @@ public class App {
     /**
      * method to get all rates mid from currency note
      *
-     * @see #DataDownloader
+     * @see com.zpi.currencyapp.DataDownloader
      * @return a <code> List<Double> </code> all rates mid from currency note
      */
 
