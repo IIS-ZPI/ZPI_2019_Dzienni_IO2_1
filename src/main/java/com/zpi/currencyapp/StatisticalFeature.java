@@ -30,7 +30,7 @@ public class StatisticalFeature {
 
     /**
      * calculate average of all download values
-     * 
+     *
      * @return a <code> double </code>
      */
 
@@ -44,7 +44,7 @@ public class StatisticalFeature {
 
     /**
      * calculate median of all download values
-     * 
+     *
      * @return a <code> double </code>
      */
 
@@ -60,8 +60,8 @@ public class StatisticalFeature {
 
     /**
      * calculate dominant of all download values
-     * 
-     * @return a <code> List<Double> </code> of dominantes values
+     *
+     * @return a <code> List Double </code> of dominantes values
      */
 
     public List<Double> calculateDominant() {
@@ -87,7 +87,7 @@ public class StatisticalFeature {
 
     /**
      * calculate standard deviation of all download values
-     * 
+     *
      * @return a <code> double </code>
      */
 
@@ -103,7 +103,7 @@ public class StatisticalFeature {
 
     /**
      * calculate coefficient of variation of all download values
-     * 
+     *
      * @return a <code> double </code>
      */
     public double coefficientOfVariation() {

@@ -30,7 +30,7 @@ deploy:
   api_key:
        secure: AhOoeDS3N9MgnwsQXPmnRNYfn4ddwZVfazrLBlkYrT1hYRJHlJdKok+eWxZ5rp3tFyoSl3piCkYJS/iflqcHyHxwd9T2q/X6ksbEO33CUhUoZ8kzbY4zLP7KwMmrazzlKCrRCeLVOLHZTM1sAFJYbjdk3sFfVBVoQ6+IBbjIPvvws8Un1EwIHekZqCsJ6kWfxF/YQtTQYFC/Ytisry6zt/kFjilhGKld3yMU4XDrq2bpvSEKk+3l9g7nLERdrtET+qzfnMVfXPCu9fNAUEtBHe6YAAf5gdBRMFV3thmK1T5U1+Bs2Kx+z7QYe9I4cvLM44B1UVICJjrw+UYPzjQPpdHAKLBM5byIEyZKZdg01pF4flSJO9oDWMtj6jNwJCnlWmgvXg1JLmooNiHbZyAuOuEEhBqlu4ew8xiIcsuLR8ghnwjDy6UiitZ7whVCDHspwfgH9YS7gu9Nj+d8uaIyT0MuaBrueshO8ZIMSuxIzmL6yFjuY8luI3JNMo2W9yTebs6zWgYxc1L6DWlcQhrkTBA7wnWFYvu2Uaf99+mdiUp5aShwvL2Xg6ur85/xcfI0jbBuAvlugwaENTeYIxNp2Ruxn9SafBzuJFsl+rDPigOjl/xwBPxhZpK2vK6R2W6HsSgvdzlhwpim6LixEVQtOlaWxb9DAh2Tv9Pd8jeRP7Y=
   file_glob: true
-  file: "target/*.jar"
+  file: "target/*jar-with-dependencies.jar"
   skip_cleanup: true
   on:
     repo: IIS-ZPI/ZPI_2019_Dzienni_IO2_1

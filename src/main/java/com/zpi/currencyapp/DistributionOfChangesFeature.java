@@ -20,7 +20,7 @@ public class DistributionOfChangesFeature {
     /**
      * method to print of distribution of changes between two currency notes
      *
-     * @see #CurrencyNoteA
+     * @see com.zpi.datamodel.CurrencyNoteA
      * @param note1
      *            of first currency
      * @param note2
@@ -61,7 +61,7 @@ public class DistributionOfChangesFeature {
     /**
      * method to print row of rates
      *
-     * @see #RateA
+     * @see com.zpi.datamodel.RateA
      * @param rate1Yesterday
      *            rate from yesterday
      * @param rate1Today
