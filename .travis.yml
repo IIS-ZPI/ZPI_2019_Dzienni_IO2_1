@@ -13,7 +13,7 @@ script:
   - mvn compile
   - mvn test -B
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
-      mvn package;
+      mvn package assembly:single;
     fi
 notifications:
   email:
