@@ -46,8 +46,8 @@ public class CurrencyNoteA {
     /**
      * Get a specify list of rates
      *
-     * @see #RateA
-     * @return a <code> List<RateA> </code> rates from list
+     * @see com.zpi.datamodel.RateA
+     * @return a <code> List of RateA </code> rates from list
      */
     public List<RateA> getRates() {
         return rates;
@@ -86,9 +86,9 @@ public class CurrencyNoteA {
     /**
      * set a rate to this object field list
      *
-     * @see #RateA
+     * @see com.zpi.datamodel.RateA
      * @param rates
-     *            as List<RateA>
+     *            as List of RateA
      *
      */
     public void setRates(List<RateA> rates) {

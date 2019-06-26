@@ -2,13 +2,19 @@ package com.zpi.currencyapp;
 
 import java.util.List;
 
+/**
+ * This is a model class to calculate different amounts of growth in depend on data session
+ *
+ * @see java.lang.Object
+ * @author dominik3131
+ */
 public class SessionsAnalyzer {
 
     /**
      * Calculates how many growth sessions are in passed amount of data
      *
-     * @param Note
-     *            rates to calculate growth sessions
+     * @param ratesMid
+     *            to calculate growth sessions
      * @return a <code> integer </code> amount of growth sessions
      */
     public int calculateGrowthSessionsAmount(List<Double> ratesMid) {
@@ -32,8 +38,8 @@ public class SessionsAnalyzer {
     /**
      * Calculates how many decrease sessions are in passed amount of data
      *
-     * @param Note
-     *            rates to calculate decrease sessions
+     * @param ratesMid
+     *            to calculate decrease sessions
      * @return a <code> integer </code> amount of decrease sessions
      */
     public int calculateDownwardSessionsAmount(List<Double> ratesMid) {
@@ -57,8 +63,8 @@ public class SessionsAnalyzer {
     /**
      * Calculates how many stable sessions are in passed amount of data
      *
-     * @param Note
-     *            rates to calculate stable sessions
+     * @param ratesMid
+     *            to calculate stable sessions
      * @return a <code> integer </code> amount of stable sessions
      */
     public int calculateStableSessionsAmount(List<Double> ratesMid) {
