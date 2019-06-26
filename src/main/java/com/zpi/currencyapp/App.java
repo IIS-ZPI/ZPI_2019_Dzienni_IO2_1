@@ -174,13 +174,22 @@ public class App {
 
     private void sessionsStaticticsControl() throws IOException {
         String currency = chooseCurrency();
+        DecimalFormat df = new DecimalFormat("#.###", new DecimalFormatSymbols(Locale.US));
         LocalDate startDate = choosePeriodFromWeekToOneYear();
         CurrencyNoteA note = DataDownloader.getDataForSingleCurrency(currency, startDate, LocalDate.now());
         List<Double> rates = getAllRatesMidFromCurrencyNote(note);
         System.out.println("Data from " + startDate + " to " + LocalDate.now() + " for currency " + currency);
-        System.out.println("growth sessions: " + sessionsAnalyzer.calculateGrowthSessionsAmount(rates));
-        System.out.println("downward sessions: " + sessionsAnalyzer.calculateDownwardSessionsAmount(rates));
-        System.out.println("stable sessions: " + sessionsAnalyzer.calculateStableSessionsAmount(rates));
+        System.out.println(
+                "----------------------------------------------------------------------------------------------------------------");
+        System.out.println("growth sessions:    | " + df.format(sessionsAnalyzer.calculateGrowthSessionsAmount(rates)));
+        System.out.println(
+                "----------------------------------------------------------------------------------------------------------------");
+        System.out.println("downward sessions:  | " + df.format(sessionsAnalyzer.calculateDownwardSessionsAmount(rates)));
+        System.out.println(
+                "----------------------------------------------------------------------------------------------------------------");
+        System.out.println("stable sessions:    | " + df.format(sessionsAnalyzer.calculateStableSessionsAmount(rates)));
+        System.out.println(
+                "----------------------------------------------------------------------------------------------------------------");
         pressEnterToContinue();
         mainMenuControl();
     }
